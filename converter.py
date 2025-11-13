@@ -17,17 +17,18 @@ Functions:
 
 Examples:
     >>> from converter import dna_rna_or_mrna
-    >>> dna_rna_or_mrna("ATCG", "rna")
+    >>> dna_rna_or_mrna("atcg", "rna")
     'aucg'
-    >>> dna_rna_or_mrna("ATCG", "mrna")
+    >>> dna_rna_or_mrna("AtCg", "mrna")
     'uagc'
     >>> dna_rna_or_mrna("ATXCG", "rna")  # Invalid base 'X' filtered out.
     'aucg'
 
 Notes:
-    - All input DNA sequences are converted to lowercase before processing.
+    - All input DNA sequences and bases are converted to lowercase before processing.
+    - Inputs are all case-insensitive.
     - Invalid bases (not in valid_bases parameter) are silently filtered out.
-    - Returns an error message if no valid bases remain after filtering.
+    - Returns an error message string if no valid bases remain after filtering.
     - Output sequences are always in lowercase.
 
 Author: Kevin K. Le
@@ -37,6 +38,13 @@ License: Apache 2.0
 
 from typing import Literal
 
+
+MRNA_TRANSCRIPTION = {
+    "a": "u",
+    "t": "a",
+    "c": "g",
+    "g": "c"
+}
 
 def dna_rna_or_mrna(dna: str, conversion: Literal["rna", "mrna"], valid_bases: str = "atcg") -> str:
     """
@@ -49,15 +57,16 @@ def dna_rna_or_mrna(dna: str, conversion: Literal["rna", "mrna"], valid_bases: s
         valid_bases: String of valid base characters (default: "atcg").
     
     Returns:
-        str: Converted sequence (RNA or mRNA), or error message if no valid bases found.
+        str: Converted sequence (RNA or mRNA), or an error message if no valid bases were found.
         
     Examples:
         >>> dna_rna_or_mrna("ATCG", "rna")
         'aucg'
-        >>> dna_rna_or_mrna("ATCG", "mrna")
+        >>> dna_rna_or_mrna("aTcG", "mrna")
         'uagc'
     """
-    dna = dna.lower()
+    dna = dna.strip().lower()
+    valid_bases = valid_bases.strip().lower()
 
     filtered_dna = "".join(char for char in dna if char in valid_bases)
 
@@ -65,14 +74,7 @@ def dna_rna_or_mrna(dna: str, conversion: Literal["rna", "mrna"], valid_bases: s
         return f"'{dna}' has no valid bases. Please try again."
 
     if conversion == "mrna":
-        transcription = {
-            "a": "u",
-            "t": "a",
-            "c": "g",
-            "g": "c"
-        }
-
-        mrna = "".join(transcription[strand] for strand in filtered_dna)
+        mrna = "".join(MRNA_TRANSCRIPTION[strand] for strand in filtered_dna)
 
         return mrna
 
