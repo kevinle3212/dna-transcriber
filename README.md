@@ -1,4 +1,8 @@
-# DNA to RNA/mRNA Converter (dna-transcriber)
+#
+
+![DNA Icon](assets/img/dna-rna-mrna-transcriber.png)
+
+## DNA to RNA/mRNA Converter (dna-transcriber)
 
 A simple Python tool for converting DNA sequences into RNA or mRNA strands.
 
