@@ -1,6 +1,6 @@
 #
 
-![DNA Icon](assets/img/dna-rna-mrna-transcriber.png) {width=256 height=384}
+<img src="assets/img/dna-rna-mrna-transcriber.png" alt="DNA Icon" width="256" height="384">
 ![Python Version](https://img.shields.io/badge/python-3.6%2B-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-green)
 
